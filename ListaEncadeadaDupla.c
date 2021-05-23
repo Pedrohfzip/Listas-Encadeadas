@@ -29,17 +29,21 @@ Elemento* encontrarElemento(Lista*,int);
 int main(){
 Lista* lista = criaLista();
 
-
+    insereElemento(lista,NULL,30);
     insereElemento(lista,lista->head,10);
     insereElemento(lista,lista->head,20);
-    insereElemento(lista,lista->tail,30);
+    insereElemento(lista,lista->head->next,60);
+    insereElemento(lista,lista->tail,40);
+    insereElemento(lista,lista->tail->previous,50);
+    insereElemento(lista,lista->head->previous,70);
+
+
     mostrarLista(lista);
-    removeElemento(lista,lista->head);
     printf("\n");
+    removeElemento(lista,lista->head->next->previous);
     mostrarLista(lista);
 
-
-}
+    }
 
 Lista* criaLista(){
 
@@ -119,7 +123,19 @@ Elemento* antigo;
 
 
 Elemento* encontrarElemento(Lista* lista,int dado){
-//
+Elemento* aux = lista->head;
+int cont = 0;
+
+    while(aux->next!=NULL){
+        if(aux->dado == dado){
+            printf("\nPosicao %i: Elemento encontrado -> %i", cont,aux->dado);
+
+        }else{
+            printf("\nPosicao %i: Nenhum elemento foi encontrado", cont);
+        }
+         aux = aux->next;
+         cont++;
+    }
 }
 
 
@@ -127,14 +143,10 @@ void mostrarLista(Lista* lista){
 
 Elemento* aux = lista->head;
 
-        if(lista->size == 0){
-                printf("Lista Vazia");
-        }else{
-
-            while(aux != NULL){
+        while(aux != NULL){
             printf("%i,", aux->dado);
             aux = aux->next;
-            }
         }
 
-    }
+}
+
